@@ -34,10 +34,13 @@ app.get('/search', (req, res) => {
   const searchResult = menu.results.filter((item) => {
     return item.name.toLowerCase().includes(keyword.toLowerCase()) || item.category.toLowerCase().includes(keyword.toLowerCase())
   })
-  res.render('index', { menuList: searchResult })
+  if(searchResult.length > 0) {
+    res.render('index', { menuList: searchResult })
+  } else {
+    res.render('index', { menuList: menu.results })
+  }
+  
 })
-
-
 
 app.listen(port, () => {
   console.log(`This is my server at localhost:${port}`)
